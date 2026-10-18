@@ -1,0 +1,54 @@
+.disk-toast { position: fixed; z-index: 60; top: var(--collapse-spacing-horizontal-xxxl); left: 50%; transform: translateX(-50%); }
+
+.disk-picker { min-height: 0; flex: 1; display: flex; flex-direction: column; gap: var(--collapse-spacing-horizontal-s); padding: var(--collapse-spacing-horizontal-l); }
+.disk-picker .collapse-search-field { width: 100%; }
+.disk-picker__list { min-height: 0; flex: 1; overflow-y: auto; scrollbar-width: none; }
+.disk-picker__list::-webkit-scrollbar { display: none; }
+.disk-picker__sort { display: inline-flex; align-items: center; gap: var(--collapse-spacing-horizontal-xxs); color: inherit; font: inherit; border-radius: var(--collapse-radius-small); }
+.disk-picker__sort:focus-visible { outline: var(--collapse-stroke-width-thick) solid var(--collapse-color-border-solid-accent-primary); }
+.disk-picker__sort svg { width: var(--collapse-size-icon-xs); height: var(--collapse-size-icon-xs); }
+.disk-picker__empty { min-height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--collapse-spacing-horizontal-xs); color: var(--collapse-color-text-opacity-base-tertiary); text-align: center; }
+.disk-picker__empty > strong { color: var(--collapse-color-text-solid-base-primary); font-weight: var(--collapse-paragraph-s-medium-weight); }
+/* Полоса под поиском: вместо табов внутри папки стоит путь, в «Выбранных» — стрелка и заголовок. Высота и линия как у Tabs line. */
+.disk-picker__bar { min-height: var(--collapse-size-tabs-default); padding-top: var(--collapse-spacing-horizontal-s); display: flex; align-items: center; gap: var(--collapse-spacing-horizontal-s-nudge); border-bottom: var(--collapse-stroke-width-xthin) solid var(--collapse-color-border-opacity-base-tertiary); color: var(--collapse-color-text-opacity-base-tertiary); font-size: var(--collapse-paragraph-s-size); line-height: var(--collapse-paragraph-s-line-height); letter-spacing: var(--collapse-paragraph-s-letter-spacing); }
+.disk-picker__bar-title { color: var(--collapse-color-text-solid-base-primary); font-weight: var(--collapse-paragraph-s-semibold-weight); }
+.disk-picker__crumbs { padding-left: var(--collapse-spacing-horizontal-m); overflow: hidden; white-space: nowrap; }
+.disk-picker__crumb { display: inline-flex; align-items: center; gap: var(--collapse-spacing-horizontal-s-nudge); }
+.disk-picker__crumb > button { color: inherit; font: inherit; border-radius: var(--collapse-radius-small); }
+.disk-picker__crumb > button:hover { color: var(--collapse-color-text-solid-base-primary); }
+.disk-picker__crumb > button:focus-visible { outline: var(--collapse-stroke-width-thick) solid var(--collapse-color-border-solid-accent-primary); }
+.disk-picker__crumb > svg { width: var(--collapse-size-icon-xs); height: var(--collapse-size-icon-xs); flex: 0 0 auto; }
+/* Список дисков: одна колонка, без чекбокса, владельца и даты. */
+.disk-picker__table.is-drives .disk-picker__row { grid-template-columns: minmax(0, 1fr); }
+.disk-picker__name > .disk-picker__drive { width: var(--collapse-size-control-s); height: var(--collapse-size-control-s); flex: 0 0 auto; display: grid; place-items: center; }
+.disk-picker__name > .disk-picker__drive::before { content: ''; grid-area: 1 / 1; width: var(--collapse-size-icon-l); height: var(--collapse-size-icon-l); border-radius: var(--collapse-radius-full); background: var(--collapse-color-state-layer-on-base-tertiary); }
+.disk-picker__name > .disk-picker__drive > svg { grid-area: 1 / 1; width: var(--collapse-size-icon-xs); height: var(--collapse-size-icon-xs); color: var(--collapse-color-text-opacity-base-tertiary); }
+.disk-picker__counter { margin-left: calc(var(--collapse-spacing-horizontal-xs) * -1); }
+.disk-picker__footer { width: 100%; display: flex; align-items: center; justify-content: space-between; color: var(--collapse-color-text-opacity-base-secondary); }
+
+
+
+.collapse-modal-page.disk-picker-modal { width: min(var(--collapse-size-modal-page-wide), 100%); }
+
+.disk-redirect { padding: var(--collapse-spacing-horizontal-xl) var(--collapse-spacing-horizontal-l) var(--collapse-spacing-horizontal-l); display: flex; flex-direction: column; align-items: center; gap: var(--collapse-spacing-horizontal-l); color: var(--collapse-color-text-opacity-base-secondary); text-align: center; }
+.disk-redirect p { margin: 0; }
+
+.disk-stored-meta { display: inline-flex; align-items: center; gap: var(--collapse-spacing-horizontal-xs); color: var(--collapse-color-text-solid-base-tertiary); }
+/* IcFolderFilled из макета: залитая папка 16 px цвета подписи. */
+.disk-stored-meta svg { width: var(--collapse-size-icon-xs); height: var(--collapse-size-icon-xs); flex: 0 0 auto; fill: currentColor; stroke: none; }
+
+/* Список выбора файлов: колонки чекбокс / название / владелец / время. Правая колонка прижата к краю и общая для шапки и строк. */
+.disk-picker__table { display: flex; flex-direction: column; }
+.disk-picker__row { min-height: var(--collapse-size-table-row); padding: var(--collapse-spacing-horizontal-none) var(--collapse-spacing-horizontal-s); display: grid; grid-template-columns: var(--collapse-size-control-s) minmax(0, 1fr) var(--collapse-size-disk-picker-owner) var(--collapse-size-disk-picker-time); align-items: center; column-gap: var(--collapse-spacing-horizontal-s); border-radius: var(--collapse-radius-menu-item); font-size: var(--collapse-paragraph-s-size); line-height: var(--collapse-paragraph-s-line-height); cursor: pointer; }
+.disk-picker__row:not(.disk-picker__row--head):not(.is-disabled):hover { background: var(--collapse-color-state-layer-on-base-tertiary); }
+.disk-picker__row.is-selected { background: var(--collapse-color-state-layer-on-accent-secondary); }
+.disk-picker__row:focus-visible { outline: var(--collapse-stroke-width-thick) solid var(--collapse-color-border-solid-accent-primary); outline-offset: calc(var(--collapse-spacing-horizontal-xxs) * -1); }
+.disk-picker__row.is-disabled { color: var(--collapse-color-text-opacity-base-disabled); cursor: default; }
+.disk-picker__row--head { min-height: var(--collapse-size-control-m); cursor: default; color: var(--collapse-color-text-opacity-base-secondary); font-size: var(--collapse-caption-m-size); line-height: var(--collapse-caption-m-line-height); }
+.disk-picker__cell { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.disk-picker__cell--check { display: grid; place-items: center; }
+.disk-picker__cell--end { justify-self: end; text-align: right; padding-right: var(--collapse-spacing-horizontal-s); }
+.disk-picker__name { display: flex; align-items: center; gap: var(--collapse-spacing-horizontal-s); }
+.disk-picker__name > span { min-width: 0; display: flex; flex-direction: column; }
+.disk-picker__name > span > span { overflow: hidden; text-overflow: ellipsis; }
+.disk-picker__name small { color: var(--collapse-color-text-opacity-base-tertiary); font-size: var(--collapse-caption-m-size); line-height: var(--collapse-caption-m-line-height); }

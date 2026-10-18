@@ -1,0 +1,173 @@
+:root {
+  --collapse-spacing-horizontal-none: 0px;
+  --collapse-spacing-horizontal-xxs: 2px;
+  --collapse-spacing-horizontal-xs: 4px;
+  --collapse-spacing-horizontal-s-nudge: 6px;
+  --collapse-spacing-horizontal-s: 8px;
+  --collapse-spacing-horizontal-m-nudge: 10px;
+  --collapse-spacing-horizontal-m: 12px;
+  --collapse-spacing-horizontal-l: 16px;
+  --collapse-spacing-horizontal-xl: 20px;
+  --collapse-spacing-horizontal-xxl: 24px;
+  --collapse-spacing-horizontal-xxxl: 32px;
+
+  --collapse-stroke-width-xthin: 1px;
+  --collapse-stroke-width-thin: 1.5px;
+  --collapse-stroke-width-thick: 2px;
+  --collapse-stroke-width-xthick: 2.5px;
+
+  /* Confirmed component radii; Layout tokens with the same size labels were not exposed with values. */
+  --collapse-radius-small: 12px;
+  --collapse-radius-checkbox: 7px;
+  --collapse-radius-squircle: 16px;
+  --collapse-radius-menu-item: 18px;
+  --collapse-radius-control: 24px;
+  --collapse-radius-container: 32px;
+  --collapse-radius-modal: 36px;
+  --collapse-radius-toast: 40px;
+  --collapse-radius-full: 9999px;
+
+  /* Base component dimensions confirmed in the matching Figma component sets. */
+  --collapse-size-icon-xs: 16px;
+  --collapse-size-icon-s: 20px;
+  --collapse-size-icon-m: 24px;
+  --collapse-size-icon-l: 28px;
+  --collapse-size-control-s: 40px;
+  --collapse-size-avatar-m: var(--collapse-size-control-s);
+  --collapse-size-avatar-l: 44px;
+  --collapse-size-avatar-xs: 28px;
+  --collapse-size-avatar-profile: 124px; /* Figma 40000074:62316, аватар в профиле участника */
+  --collapse-size-control-m: 48px;
+  --collapse-size-control-l: 56px;
+  --collapse-size-field: 56px;
+  --collapse-size-field-min: 110px;
+  --collapse-size-text-area-min: 76px;
+  --collapse-size-text-area-max: 156px;
+  --collapse-size-choice-target-s: 32px;
+  --collapse-size-choice-target-m: 44px;
+  --collapse-size-choice-indicator-s: 18px;
+  --collapse-size-choice-indicator-m: 20px;
+  --collapse-size-switch-width: 52px;
+  --collapse-size-switch-height: 28px;
+  --collapse-size-switch-thumb-off: 12px;
+  --collapse-size-switch-thumb-on: 20px;
+  --collapse-size-switch-thumb-pressed: 24px;
+  --collapse-size-switch-state-layer: 36px;
+  --collapse-size-status-dot: 8px;
+  --collapse-size-chip-xs: 30px;
+  --collapse-size-chip-s: 32px;
+  --collapse-size-chip-m: 40px;
+  --collapse-size-chip-label-max: 200px;
+  --collapse-size-tab-item: 44px;
+  --collapse-size-tabs-default: 52px;
+  --collapse-size-tabs-accent: 60px;
+  /* SegmentControls / S: Figma 2149:17602, inner track 32, tab 24, content icon 20. */
+  --collapse-size-segment-track-s: 32px;
+  --collapse-size-segment-item-s: 24px;
+  --collapse-size-counter-s: 22px;
+  --collapse-size-counter-m: 32px;
+  --collapse-size-counter-default-s: 16px;
+  --collapse-size-counter-default-m: 20px;
+  --collapse-size-progress: 12px;
+  --collapse-size-progress-track: 4px;
+  --collapse-size-uploader: 124px;
+  --collapse-size-list-item-m: 72px;
+  --collapse-size-list-item-l: 80px;
+  --collapse-size-file-item-m: 65px;
+  --collapse-size-file-item-l: 73px;
+  --collapse-size-file-item-s: 48px;
+  /* FileType / S geometry confirmed in Base Figma. */
+  --collapse-size-file-type-fold-width: 10.5px;
+  --collapse-size-file-type-fold-height: 11px;
+  /* Product requirement from the editor-width review, 2026-09-29. */
+  --collapse-size-message-editor-max: 700px;
+  --collapse-size-message-editor-input-min: 52px;
+  --collapse-size-message-editor-input-max: 160px;
+  --collapse-size-message-editor-panel: 44px;
+  --collapse-size-message-editor-attachment-min: 160px;
+  --collapse-size-message-editor-attachment-max: 259px;
+  --collapse-size-message-editor-mention: 400px;
+  /* Technical demo assumption: banner card is bound to a duplicate design system; sizes read from Figma 8678:102365 (424 / 76 / 56). */
+  --collapse-size-file-card-width: 424px;
+  --collapse-size-file-card-preview: 76px;
+  --collapse-size-file-card-row: 56px;
+  --collapse-size-message-editor-mention-height: 272px;
+  /* Technical demo assumption: a media Bubble variant was not available in the inspected Figma sources. */
+  --collapse-size-message-media-width: 320px;
+  --collapse-size-message-media-height: 220px;
+  --collapse-size-action-card: 198px;
+  --collapse-size-action-card-m: 88px;
+  --collapse-size-action-card-s: 72px;
+  --collapse-size-action-card-group: 404px;
+  --collapse-size-pin-cell: 51px;
+  --collapse-size-nav-item: 48px;
+  --collapse-size-chat-list-row: 304px;
+  --collapse-size-bottom-nav: 72px;
+  --collapse-size-split-button-s: 60px;
+  --collapse-size-split-button-m: 76px;
+  --collapse-size-split-button-l: 88px;
+  --collapse-size-split-button-action-s: 32px;
+  --collapse-size-split-button-action-m: 44px;
+  --collapse-size-split-button-action-l: 52px;
+  --collapse-size-split-button-menu-s: 28px;
+  --collapse-size-split-button-menu-m: 32px;
+  --collapse-size-split-button-menu-l: 36px;
+  --collapse-size-emoji-picker-width: 352px;
+  --collapse-size-emoji-picker-height: 340px;
+  --collapse-size-emoji-search: 44px;
+  --collapse-size-emoji-item: 36px;
+  --collapse-size-emoji-glyph: 26px;
+  --collapse-size-emoji-glyph-line: 30px;
+  --collapse-size-table-width: 544px;
+  --collapse-size-table-row: 62px;
+  --collapse-size-chip-field: 72px;
+  --collapse-size-tooltip-fixed: 260px;
+  --collapse-size-tooltip-arrow-width: 12px;
+  --collapse-size-tooltip-arrow-height: 6px;
+  --collapse-size-feedback-min: 180px;
+  --collapse-size-feedback-max: 500px;
+  --collapse-size-feedback-min-height: 64px;
+  --collapse-size-toast-fixed: 416px;
+  --collapse-size-toast-copy-max: 420px;
+  --collapse-size-snackbar: 380px;
+  --collapse-size-password-hint: 218px;
+  --collapse-size-password-bar: 4px;
+  --collapse-size-option-menu-content-min: 220px;
+  --collapse-size-option-menu-item: 44px;
+  --collapse-size-option-menu-divider-space: 17px;
+  --collapse-size-option-menu-divider-offset: 9px;
+  --collapse-size-option-menu-switch-width: 44px;
+  --collapse-size-option-menu-switch-height: 28px;
+  --collapse-size-option-menu-switch-padding: 3px;
+  --collapse-size-option-menu-switch-thumb: 18px;
+  --collapse-size-drop-field: 201px;
+  --collapse-size-drop-field-label: 20px;
+  --collapse-size-drop-field-hint: 22px;
+  --collapse-radius-action-card-small: 20px;
+  --collapse-radius-list-item: 22px;
+  --collapse-size-menu-min: 298px;
+  --collapse-size-menu-max: 400px;
+  --collapse-size-story-width: 640px;
+  --collapse-size-story-height: 360px;
+  --collapse-size-folder-modal-width: 460px;
+  --collapse-size-folder-management-height: 568px;
+  --collapse-size-folder-create-width: 456px;
+  --collapse-size-folder-create-min-height: 466px;
+  --collapse-size-modal-header: 56px;
+  --collapse-size-modal-footer: 72px;
+  --collapse-size-folder-list-row: 60px;
+  --collapse-size-folder-picker-search: 44px;
+  --collapse-size-folder-picker-list-max: 500px;
+  --collapse-size-confirm-dialog-width: 320px;
+  /* Product requirement from the modal-height review, 2026-09-29. */
+  --collapse-size-modal-max-height: 700px;
+  /* Federation desktop flows, Figma Desktop 6747:20952. */
+  --collapse-size-modal-page-width: 460px;
+  /* Technical demo assumption: Disk picker width is not in Base; wide enough for a three-column table. */
+  --collapse-size-modal-page-wide: 720px;
+  --collapse-size-disk-picker-owner: 176px;
+  --collapse-size-disk-picker-time: 152px;
+  --collapse-size-modal-page-max-height: var(--collapse-size-modal-max-height);
+  --collapse-size-modal-page-uploader: 112px;
+  --collapse-size-search-field: 44px;
+}

@@ -1,0 +1,11 @@
+:root {
+  --collapse-effect-shadow-02: 0 10px 20px #2826350f, 0 4px 90px #28263514;
+  --collapse-effect-shadow-08: 0 3px 8px #2826351a, 0 2px 24px #28263514;
+  --collapse-effect-shadow-16: 0 3px 8px #28263533, 0 2px 24px #2826351f;
+  --collapse-effect-blur-background-default: 64px;
+  --collapse-effect-blur-background-accent: 128px;
+
+  /* Component-state values retained from the confirmed BASE hover examples. */
+  --collapse-effect-shadow-02-compact: 0 10px 10px #2826350f, 0 4px 45px #28263514;
+  --collapse-effect-blur-background-compact: 32px;
+}

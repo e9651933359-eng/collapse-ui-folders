@@ -1,0 +1,91 @@
+:root {
+  /* Collapse Core: effective light values read from Figma variables. */
+  --collapse-color-text-solid-base-primary: #1f1d23;
+  --collapse-color-text-solid-base-secondary: #474351;
+  --collapse-color-text-solid-base-tertiary: #686277;
+  --collapse-color-text-solid-base-light-primary: #f7f6fb;
+  --collapse-color-text-solid-base-light-full-static: #ffffff;
+  --collapse-color-text-solid-accent-primary: #7047fe;
+  --collapse-color-text-solid-accent-accent: #272040;
+  --collapse-color-text-solid-error-primary-dim: #dc4037;
+  --collapse-color-text-solid-error-accent: #400d0d;
+  --collapse-color-text-solid-success-accent: #08321d;
+  --collapse-color-text-solid-warning-accent: #3d200f;
+  /* Federation participant count, Figma 6932:43530. */
+  --collapse-color-text-solid-federation-primary: #e94a24;
+  --collapse-color-text-opacity-base-primary: #282635f5;
+  --collapse-color-text-opacity-base-secondary: #282635b8;
+  --collapse-color-text-opacity-base-tertiary: #2826358f;
+  --collapse-color-text-opacity-base-disabled: #28263566;
+
+  --collapse-color-icon-solid-base-accent: #1f1d23;
+  --collapse-color-icon-solid-base-secondary: #474351;
+  --collapse-color-icon-opacity-base-accent-tint: #2826358f;
+  --collapse-color-icon-opacity-base-accent-tint-light: #282635b8;
+  --collapse-color-icon-opacity-base-disabled: #28263566;
+  --collapse-color-icon-solid-accent-primary: #7047fe;
+  --collapse-color-icon-solid-error-primary: #fe4f45;
+  --collapse-color-icon-solid-success-primary: #0dc268;
+  --collapse-color-icon-solid-warning-primary: #ff914c;
+  --collapse-color-icon-solid-base-light-primary: #f7f6fb;
+  --collapse-color-icon-solid-base-light-full-static: #ffffff;
+
+  --collapse-color-surface-solid-foundation: #ebedf3;
+  --collapse-color-surface-solid-primary: #f9fafc;
+  --collapse-color-surface-solid-secondary: #eeeff5;
+  --collapse-color-background-solid-base-light: #ffffff;
+  --collapse-color-background-solid-base-accent: #2f2c35;
+  --collapse-color-background-solid-base-accent-strong: #0f0f0f;
+  --collapse-color-background-solid-accent-primary: #7047fe;
+  --collapse-color-background-solid-accent-tint-dim: #e7e0ff;
+  --collapse-color-background-solid-error-primary: #fe4f45;
+  --collapse-color-background-solid-error-tint: #fff3f3;
+  --collapse-color-background-solid-success-primary: #0dc268;
+  --collapse-color-background-solid-warning-primary: #ff914c;
+  --collapse-color-background-opacity-base-light-accent: #fffffff5;
+  --collapse-color-background-opacity-base-light-primary: #ffffffa3;
+  --collapse-color-background-opacity-base-light-primary-dim: #ffffffe0;
+  --collapse-color-background-opacity-light-secondary: #ffffffe0;
+  --collapse-color-background-opacity-base-secondary: #2826350f;
+  --collapse-color-background-opacity-base-secondary-dim: #2826351a;
+  --collapse-color-background-opacity-base-primary-dim: #2826353d;
+  --collapse-color-background-opacity-base-secondary-tint: #2826350a;
+  --collapse-color-background-opacity-base-container-group: #2826350a;
+  --collapse-color-background-opacity-base-disabled: #2826350a;
+  --collapse-color-background-opacity-base-primary: #28263529;
+  --collapse-color-background-opacity-base-accent: #282635b8;
+  --collapse-color-background-opacity-scrim-default: #28263529;
+  --collapse-color-background-opacity-error-secondary: #fe4f451a;
+  --collapse-color-background-opacity-warning-primary: #ff914c29; /* Figma 40000074:62321, rgba(255,145,76,0.16) */
+  --collapse-color-background-opacity-warning-secondary: #ff914c1f;
+  --collapse-color-background-opacity-success-secondary: #0dc2681f;
+  --collapse-color-background-opacity-accent-secondary: #7047fe1a;
+  --collapse-color-background-opacity-light-primary: #fffffff5;
+  --collapse-color-background-opacity-light-tertiary: #ffffffa3;
+
+  --collapse-color-border-opacity-base-tertiary: #28263514;
+  --collapse-color-border-opacity-base-tertiary-dim: #28263529;
+  --collapse-color-border-opacity-base-tertiary-tint: #2826350a;
+  --collapse-color-border-opacity-base-secondary-dim-variant: #28263566;
+  --collapse-color-border-opacity-base-secondary-dim: #28263547;
+  --collapse-color-border-opacity-base-light-secondary: #ffffffa3;
+  --collapse-color-border-opacity-base-light-tertiary-tint: #ffffff33;
+  --collapse-color-border-opacity-base-light-tertiary: #ffffff66;
+  --collapse-color-border-solid-accent-primary: #7047fe;
+  --collapse-color-border-solid-error-primary-tint: #ffe0e0;
+  --collapse-color-border-opacity-base-primary: #2826358f;
+
+  --collapse-color-state-layer-on-base-tertiary: #2826350f;
+  --collapse-color-state-layer-on-base-secondary: #2826351a;
+  --collapse-color-state-layer-on-accent-primary: #7047fe29;
+  --collapse-color-state-layer-on-accent-secondary: #7047fe1a;
+  --collapse-color-state-layer-on-accent-dim-secondary: #2826351f;
+  --collapse-color-state-layer-on-accent-dim-primary: #2826353d;
+  --collapse-color-state-layer-on-accent-dim-tertiary: #231c3a14;
+  --collapse-color-state-layer-on-error-primary: #fe4f4529;
+  --collapse-color-state-layer-on-error-secondary: #fe4f451a;
+  --collapse-color-state-layer-on-light-secondary: #ffffff1a;
+  --collapse-color-state-layer-on-light-primary: #ffffff29;
+  --collapse-color-skeleton-transparent: #ffffff00;
+  --collapse-color-skeleton-highlight: #ffffff1d;
+}
