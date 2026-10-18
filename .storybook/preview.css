@@ -1,6 +1,0 @@
-html,
-body,
-#storybook-root {
-  background: var(--collapse-color-surface-solid-primary) !important;
-  color: var(--collapse-color-text-solid-base-primary);
-}

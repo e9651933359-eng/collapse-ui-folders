@@ -1,9 +1,10 @@
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
+import { applyShellTheme, readShellTheme } from '@collapse/ui'
+import '@collapse/ui/style.css'
 import { App } from './App'
-import './theme/tokens.css'
-import './styles.css'
-import './components/ui/ui.css'
+
+applyShellTheme(readShellTheme())
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>

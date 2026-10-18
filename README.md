@@ -2,6 +2,8 @@
 
 Рабочий прототип чатов, папок и локальной дизайн-системы Collapse.
 
+Компоненты берутся из пакета `@collapse/ui` (репозиторий `collapse-ui-storybook`, там же Storybook).
+
 ## Локальный запуск
 
 ```bash
@@ -13,7 +15,7 @@ npm run dev
 
 ```bash
 npm run build
-npm run build-storybook
+npm run build
 ```
 
 ## Публикация

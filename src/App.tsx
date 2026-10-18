@@ -1,37 +1,46 @@
 import { useEffect, useMemo, useRef, useState, type CSSProperties, type KeyboardEvent, type PointerEvent, type ReactNode } from 'react'
-import { Toast } from './components/feedback/Toast'
-import { ProductRail } from './components/shell/ProductRail'
-import { ChatList } from './components/shell/ChatList'
-import { FolderManagementModal } from './components/ui/FolderManagementModal'
-import type { ManagedFolder, SystemFolder } from './components/ui/FolderManagementModal'
-import { ConfirmDialog } from './components/ui/ConfirmDialog'
-import type { SegmentDisplayMode, SegmentOption } from './components/ui/SegmentControls'
-import { folderEmoji, getCustomFolderEmoji } from './components/ui/folderEmoji'
-import { ChatWorkspace, ChatWorkspaceEmpty } from './features/chat/ChatWorkspace'
-import type { MessageEditorPayload } from './features/chat/MessageEditor'
-import { initialChats } from './features/chat/mockData'
-import { togglePinnedChat } from './features/chat/order'
-import { countActiveUnreadChats } from './features/chat/unread'
 import {
+  ChatList,
+  ChatMembersModal,
+  ChatProfileModal,
+  ChatWorkspace,
+  ChatWorkspaceEmpty,
+  ConfirmDialog,
   FederationChatIndicator,
   FederationCreateFlow,
   FederationNotice,
   FederationParticipantProfile,
   FederationParticipantsModal,
+  FederationTag,
+  FolderManagementModal,
+  ProductRail,
+  Toast,
+  UserProfile,
+  countActiveUnreadChats,
   federationChatMetadata,
   federationChats,
   federationDemoContext,
   federationParticipants,
-  getFederationOrganization,
+  folderEmoji,
+  getChatMembers,
+  getCustomFolderEmoji,
   getFederationAvailability,
-} from './features/federation'
-import type { FederationChatMeta, FederationFlowMode, FederationParticipant } from './features/federation'
-import { ChatMembersModal } from './features/chat/profile/ChatMembersModal'
-import { ChatProfileModal } from './features/chat/profile/ChatProfileModal'
-import { UserProfile } from './features/chat/profile/UserProfile'
-import { getChatMembers } from './features/chat/profile/members'
-import { FederationTag } from './components/ui/FederationTag'
-import type { Chat, ChatMember } from './types/chat'
+  getFederationOrganization,
+  initialChats,
+  togglePinnedChat,
+} from '@collapse/ui'
+import type {
+  Chat,
+  ChatMember,
+  FederationChatMeta,
+  FederationFlowMode,
+  FederationParticipant,
+  ManagedFolder,
+  MessageEditorPayload,
+  SegmentDisplayMode,
+  SegmentOption,
+  SystemFolder,
+} from '@collapse/ui'
 
 const CHAT_LIST_DEFAULT_WIDTH = 320
 const CHAT_LIST_MIN_WIDTH = 240
@@ -54,6 +63,8 @@ type ChatExperienceProps = {
 
 export type ChatExperienceOverlayApi = {
   addChat: (chat: Chat) => void
+  /** Открывает чат как черновик: в списке он появится только после первого отправленного сообщения. Возвращает id открытого чата (существующего личного чата или черновика). */
+  openDraftChat: (chat: Chat) => string
   chats: Chat[]
   selectedChat?: Chat
   selectChat: (chatId: string) => void
@@ -75,6 +86,7 @@ export function ChatExperience({
 }: ChatExperienceProps) {
   const [chats, setChats] = useState<Chat[]>(chatsSource)
   const [selectedId, setSelectedId] = useState(initialSelectedId)
+  const [draftChat, setDraftChat] = useState<Chat>()
   const [query, setQuery] = useState('')
   const [segment, setSegment] = useState('')
   const [folderDisplayMode, setFolderDisplayMode] = useState<SegmentDisplayMode>('names')
@@ -98,6 +110,7 @@ export function ChatExperience({
     const clearSelection = (event: globalThis.KeyboardEvent) => {
       if (event.key !== 'Escape' || isFolderModalOpen || folderPendingDelete || document.querySelector('[role="dialog"], [role="menu"]')) return
       setSelectedId(undefined)
+      setDraftChat(undefined)
       setDraft('')
     }
 
@@ -181,16 +194,20 @@ export function ChatExperience({
       return matchesQuery && matchesSegment
     })
   }, [chats, customFolders, query, retainedNewChatId, segment])
-  const selected = chats.find((chat) => chat.id === selectedId)
+  const selected = chats.find((chat) => chat.id === selectedId) ?? (draftChat && draftChat.id === selectedId ? draftChat : undefined)
 
   const sendMessage = (payload: MessageEditorPayload) => {
     if (!selected) return
     const text = payload.text.trim()
     if (!text && !payload.attachments.length) return
     const time = new Intl.DateTimeFormat('ru', { hour: '2-digit', minute: '2-digit' }).format(new Date())
-    setChats((items) => items.map((chat) => chat.id === selected.id
-      ? { ...chat, messages: [...chat.messages, { id: crypto.randomUUID(), author: 'me', text, time, attachments: payload.attachments, linkPreview: payload.linkPreview }] }
-      : chat))
+    const message = { id: crypto.randomUUID(), author: 'me' as const, text, time, attachments: payload.attachments, linkPreview: payload.linkPreview }
+    if (draftChat && selected.id === draftChat.id) {
+      setChats((items) => [{ ...draftChat, messages: [...draftChat.messages, message] }, ...items])
+      setDraftChat(undefined)
+    } else {
+      setChats((items) => items.map((chat) => chat.id === selected.id ? { ...chat, messages: [...chat.messages, message] } : chat))
+    }
     setDraft('')
   }
 
@@ -230,6 +247,7 @@ export function ChatExperience({
       setRetainedNewChatId((current) => Boolean(chat?.unread) || current === chatId ? chatId : null)
     }
     setSelectedId(chatId)
+    setDraftChat(undefined)
     setChats((current) => current.map((chat) => chat.id === chatId && chat.unread ? { ...chat, unread: 0 } : chat))
   }
 
@@ -365,6 +383,8 @@ export function ChatExperience({
             label: chat.title,
             avatar: chat.avatar,
             avatarTone: chat.avatarTone,
+            avatarColor: chat.avatarColor,
+            image: chat.avatarImage,
             shape: chat.kind === 'channel' ? 'squircle' : 'round',
           }))}
           onClose={() => setFolderModalOpen(false)}
@@ -404,7 +424,15 @@ export function ChatExperience({
         />
         {toastMessage && <Toast className="folder-created-toast" duration={3000} icon={<img src="assets/figma/ic-message-check-outline.svg" alt="" aria-hidden="true" />} onClose={() => setToastMessage('')}>{toastMessage}</Toast>}
         {renderOverlay?.({
-          addChat: (chat) => { setChats((current) => [chat, ...current]); setSelectedId(chat.id); setSegment('all') },
+          addChat: (chat) => { setChats((current) => [chat, ...current]); setDraftChat(undefined); setSelectedId(chat.id); setSegment('all') },
+          openDraftChat: (chat) => {
+            const existing = chat.kind === 'direct' ? chats.find((item) => item.kind === 'direct' && item.title === chat.title) : undefined
+            if (existing) { selectChat(existing.id); return existing.id }
+            setDraftChat(chat)
+            setSelectedId(chat.id)
+            setDraft('')
+            return chat.id
+          },
           chats,
           selectedChat: selected,
           selectChat,
@@ -429,10 +457,10 @@ function FederationPage({ canCreateChat }: { canCreateChat: boolean }) {
   const getFederationMembers = (chat: Chat): ChatMember[] => {
     const external = (findMeta(chat.id)?.externalParticipants ?? []).map((item): ChatMember => {
       const details = federationParticipants.find((participant) => participant.id === item.id)
-      return { id: item.id, name: item.name, initials: details?.initials ?? item.name.slice(0, 2).toUpperCase(), tone: details?.tone ?? '#e8ddff', image: details?.image, email: details?.email, phone: details?.phone, role: details?.role, organization: item.organization, external: true }
+      return { id: item.id, name: item.name, initials: details?.initials ?? item.name.slice(0, 2).toUpperCase(), color: details?.color, image: details?.image, email: details?.email, phone: details?.phone, role: details?.role, organization: item.organization, external: true }
     })
     if (chat.kind === 'direct') return external.length ? external : getChatMembers(chat)
-    const internal = federationParticipants.filter((participant) => participant.organizationId === 'mts').slice(0, Math.max(1, (Number(/^(\d+)\s+участ/.exec(chat.subtitle)?.[1]) || external.length + 4) - external.length)).map((participant, index): ChatMember => ({ id: participant.id, name: participant.name, initials: participant.initials, tone: participant.tone, image: participant.image, email: participant.email, phone: participant.phone, role: participant.role, organization: 'МТС', adminRole: index === 0 ? 'Владелец' : undefined }))
+    const internal = federationParticipants.filter((participant) => participant.organizationId === 'mts').slice(0, Math.max(1, (Number(/^(\d+)\s+участ/.exec(chat.subtitle)?.[1]) || external.length + 4) - external.length)).map((participant, index): ChatMember => ({ id: participant.id, name: participant.name, initials: participant.initials, color: participant.color, image: participant.image, email: participant.email, phone: participant.phone, role: participant.role, organization: 'МТС', adminRole: index === 0 ? 'Владелец' : undefined }))
     return [...internal, ...external]
   }
 
@@ -469,7 +497,10 @@ function FederationPage({ canCreateChat }: { canCreateChat: boolean }) {
         const profileParticipant = federationParticipants.find((participant) => participant.id === profileParticipantId)
         const participantsMeta = participantsChatId ? findMeta(participantsChatId) : undefined
         return <>
-          <FederationCreateFlow open={Boolean(flow)} mode={flow?.mode ?? 'start'} existingMeta={targetMeta} onClose={() => setFlow(null)} onCreate={({ chat, meta }) => { api.addChat(chat); if (meta) setMetadata((current) => [meta, ...current]) }} onAddParticipants={addParticipants} />
+          <FederationCreateFlow open={Boolean(flow)} mode={flow?.mode ?? 'start'} existingMeta={targetMeta} onClose={() => setFlow(null)} onCreate={({ chat, meta }) => {
+            const openedId = chat.kind === 'direct' ? api.openDraftChat(chat) : (api.addChat(chat), chat.id)
+            if (meta && openedId === chat.id) setMetadata((current) => [meta, ...current])
+          }} onAddParticipants={addParticipants} />
           <FederationParticipantsModal open={Boolean(participantsMeta)} participants={participantsMeta?.externalParticipants ?? []} onClose={() => setParticipantsChatId(undefined)} onParticipantSelect={(participantId) => { setProfileBackChatId(participantsChatId); setProfileParticipantId(participantId) }} />
           <FederationParticipantProfile open={Boolean(profileParticipantId)} participant={profileParticipant} organization={profileParticipant ? getFederationOrganization(profileParticipant.organizationId)?.name ?? '' : ''} onBack={profileBackChatId ? () => { setProfileParticipantId(undefined); setParticipantsChatId(profileBackChatId); setProfileBackChatId(undefined) } : undefined} onClose={() => { setProfileParticipantId(undefined); setProfileBackChatId(undefined) }} />
         </>

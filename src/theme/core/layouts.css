@@ -1,9 +1,0 @@
-:root {
-  /* Technical relationships composed only from confirmed spacing tokens. */
-  --collapse-layout-gutter-compact: var(--collapse-spacing-horizontal-m);
-  --collapse-layout-gutter-default: var(--collapse-spacing-horizontal-l);
-  --collapse-layout-section-gap: var(--collapse-spacing-horizontal-xxl);
-  /* Technical Storybook/demo widths; not published Core breakpoints. */
-  --collapse-layout-content-compact: 320px;
-  --collapse-layout-demo-narrow: 240px;
-}
